@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Source.VistaController">
+    <children>
+        <TabPane maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="768.0" prefWidth="1366.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab closable="false" text="Stock">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="687.0" prefWidth="1369.0">
+                            <children>
+                                <TableView fx:id="tbl_stock" fixedCellSize="-2.0" layoutX="239.0" maxHeight="1080.0" maxWidth="1700.0" minHeight="720.0" minWidth="1000.0" prefHeight="739.0" prefWidth="1127.0">
+                                    <columns>
+                                        <TableColumn fx:id="tbl_stock_id" prefWidth="204.33334350585938" text="Identificador" />
+                                        <TableColumn fx:id="tbl_stock_name" prefWidth="182.0" resizable="false" text="Nombre" />
+                              <TableColumn fx:id="tbl_stock_desc" prefWidth="336.0" text="Descripción" />
+                              <TableColumn fx:id="tbl_stock_cat" prefWidth="223.0" text="Categoría" />
+                              <TableColumn fx:id="tbl_stock_price" prefWidth="181.0" text="Precio" />
+                                    </columns>
+                                </TableView>
+                                <AnchorPane prefHeight="744.0" prefWidth="241.0">
+                                    <children>
+                                        <Button fx:id="btn_addItem" layoutX="75.0" layoutY="54.0" mnemonicParsing="false" onAction="#openAdder" text="Agregar items" />
+                                        <Button layoutX="33.0" layoutY="99.0" mnemonicParsing="false" text="Button" />
+                                        <Button layoutX="33.0" layoutY="151.0" mnemonicParsing="false" text="Button" />
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Historial">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+
+</AnchorPane>
