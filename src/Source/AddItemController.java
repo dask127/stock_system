@@ -30,8 +30,7 @@ public class AddItemController implements Initializable {
     private TextField add_name_input;
     @FXML
     private TextArea add_descrip_input;
-    @FXML
-    private TextField add_price_input;
+
     @FXML
     private ChoiceBox add_category_input;
     @FXML
@@ -42,6 +41,10 @@ public class AddItemController implements Initializable {
     private Model model;
 
     private ObservableList<Item> items;
+    @FXML
+    private TextField add_price_sell_input;
+    @FXML
+    private TextField add_price_buy_input;
 
     /**
      * Initializes the controller class.
@@ -69,10 +72,11 @@ public class AddItemController implements Initializable {
 
         String nombre = this.add_name_input.getText();
         String descripcion = this.add_descrip_input.getText();
-        int precio = Integer.parseInt(this.add_price_input.getText());
+        int precioVenta = Integer.parseInt(this.add_price_sell_input.getText());
+        int precioCompra = Integer.parseInt(this.add_price_buy_input.getText());
         String categoria = (String) this.add_category_input.getValue();
 
-        Item item = new Item(nombre, descripcion, precio);
+        Item item = new Item(nombre, descripcion, precioVenta, precioCompra);
         item.setId(model.createId());
         item.setCategoria(categoria);
 

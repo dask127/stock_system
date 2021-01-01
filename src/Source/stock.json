@@ -1,0 +1,40 @@
+[
+    {
+        "cuerdas": {
+            "stock": 1,
+            "items": [
+                {
+                    "id": "743739",
+                    "atributos": {
+                        "descripcion": "esta es una prueba de cuerdas y stock",
+                        "compra": 1000,
+                        "venta": 5000,
+                        "nombre": "prueba cuerdas"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "viento": {
+            "stock": 1,
+            "items": [
+                {
+                    "id": "339195",
+                    "atributos": {
+                        "descripcion": "prueba de que las cosas andan piola",
+                        "compra": 1234,
+                        "venta": 1234,
+                        "nombre": "prueba 2"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "cosita": {
+            "stock": 0,
+            "items": []
+        }
+    }
+]

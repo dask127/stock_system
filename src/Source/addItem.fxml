@@ -7,34 +7,39 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="571.0" prefWidth="312.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Source.AddItemController">
+<AnchorPane id="AnchorPane" prefHeight="571.0" prefWidth="593.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Source.AddItemController">
    <children>
-      <TextField fx:id="add_name_input" layoutX="55.0" layoutY="68.0" prefHeight="26.0" prefWidth="202.0" promptText="Nombre...">
+      <TextField fx:id="add_name_input" layoutX="74.0" layoutY="72.0" prefHeight="45.0" prefWidth="202.0" promptText="Nombre...">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <TextArea fx:id="add_descrip_input" layoutX="55.0" layoutY="128.0" prefHeight="178.0" prefWidth="202.0" promptText="Descripción...">
+      <TextArea fx:id="add_descrip_input" layoutX="63.0" layoutY="164.0" prefHeight="178.0" prefWidth="468.0" promptText="Descripción...">
          <font>
             <Font size="15.0" />
          </font>
       </TextArea>
-      <TextField fx:id="add_price_input" layoutX="55.0" layoutY="340.0" prefHeight="45.0" prefWidth="202.0" promptText="Precio...">
+      <TextField fx:id="add_price_sell_input" layoutX="330.0" layoutY="408.0" prefHeight="45.0" prefWidth="202.0" promptText="Precio de venta...">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <ChoiceBox fx:id="add_category_input" layoutX="55.0" layoutY="445.0" prefHeight="31.0" prefWidth="202.0" />
-      <Button fx:id="add_btn" layoutX="156.0" layoutY="515.0" mnemonicParsing="false" onAction="#submit" prefHeight="35.0" prefWidth="100.0" text="Agregar" />
+      <ChoiceBox fx:id="add_category_input" layoutX="317.0" layoutY="85.0" prefHeight="31.0" prefWidth="202.0" />
+      <Button fx:id="add_btn" layoutX="431.0" layoutY="503.0" mnemonicParsing="false" onAction="#submit" prefHeight="35.0" prefWidth="100.0" text="Agregar" />
       <Label layoutX="16.0" layoutY="17.0" text="Agregar item">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="54.0" layoutY="414.0" text="Categoría:" textFill="#b9b6b6">
+      <Label layoutX="316.0" layoutY="54.0" text="Categoría:" textFill="#b9b6b6">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
+      <TextField fx:id="add_price_buy_input" layoutX="63.0" layoutY="408.0" prefHeight="45.0" prefWidth="202.0" promptText="Precio de compra...">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

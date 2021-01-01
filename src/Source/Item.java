@@ -7,12 +7,14 @@ public class Item {
     private String nombre;
     private String descripcion;
     private String categoria;
-    private int precio;
+    private int venta;
+    private int compra;
 
-    public Item(String nombre, String descripcion, int precio) {
+    public Item(String nombre, String descripcion, int precioVenta, int precioCompra) {
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.precio = precio;
+        this.venta = precioVenta;
+        this.compra = precioCompra;
     }
 
     public String getDescripcion() {
@@ -27,8 +29,12 @@ public class Item {
         return nombre;
     }
 
-    public int getPrecio() {
-        return precio;
+    public int getVenta() {
+        return venta;
+    }
+
+    public int getCompra() {
+        return compra;
     }
 
     public void setId(String id) {
@@ -43,8 +49,8 @@ public class Item {
         this.descripcion = descripcion;
     }
 
-    public void setPrecio(int precio) {
-        this.precio = precio;
+    public void setprecioVenta(int precioVenta) {
+        this.venta = precioVenta;
     }
 
     @Override
@@ -65,7 +71,10 @@ public class Item {
             return false;
         }
         final Item other = (Item) obj;
-        if (this.precio != other.precio) {
+        if (this.venta != other.venta) {
+            return false;
+        }
+        if (this.compra != other.compra) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
@@ -85,6 +94,11 @@ public class Item {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", categoria=" + categoria + ", precioVenta=" +venta + ", precioCompra=" + compra + '}';
     }
 
     public String getCategoria() {

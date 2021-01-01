@@ -1,0 +1,54 @@
+[
+    {
+        "cuerdas": {
+            "stock": 3,
+            "items": [
+                {
+                    "id": "2378543",
+                    "atributos": {
+                        "descripcion": "Piola guitarra ",
+                        "precio": 10000,
+                        "nombre": "guitarra"
+                    }
+                },
+                {
+                    "id": "486303",
+                    "atributos": {
+                        "descripcion": "piola ukelele",
+                        "precio": 1234,
+                        "nombre": "ukelele"
+                    }
+                },
+                {
+                    "id": "303076",
+                    "atributos": {
+                        "descripcion": "gutiarra acusrtica",
+                        "precio": 1234,
+                        "nombre": "guitarra acustica"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "viento": {
+            "stock": 1,
+            "items": [
+                {
+                    "id": "617585",
+                    "atributos": {
+                        "descripcion": "lorem ipsum\t",
+                        "precio": 1234,
+                        "nombre": "saxofon"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "cosita": {
+            "stock": 0,
+            "items": []
+        }
+    }
+]
