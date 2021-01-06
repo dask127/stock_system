@@ -8,6 +8,8 @@ package Source;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,29 +42,69 @@ public class AddItemController implements Initializable {
 
     private Model model;
 
+    private Item itemToModify;
+
     private ObservableList<Item> items;
     @FXML
     private TextField add_price_sell_input;
     @FXML
     private TextField add_price_buy_input;
+    @FXML
+    private TextField add_quantity_input;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        itemToModify = null;
         model = new Model();
-        //obtengo las categorias actuales desde el model
-        ArrayList categories = model.getCategories();
+        // obtengo las categorias actuales desde el model
+        ArrayList<Category> categories = model.getAllOfCategory();
 
-        //para cada categoria se la agrego al choceBox
-        for (Object category : categories) {
-            this.add_category_input.getItems().add(category.toString());
+        this.add_price_sell_input.textProperty().addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d{0,9}?")) {
+                    add_price_sell_input.setText(oldValue);
+                }
+            }
+        });
+
+        this.add_price_buy_input.textProperty().addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d{0,9}?")) {
+                    add_price_buy_input.setText(oldValue);
+                }
+            }
+        });
+
+        this.add_quantity_input.textProperty().addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d{0,9}?")) {
+                    add_quantity_input.setText(oldValue);
+                }
+            }
+        });
+
+        if (!categories.isEmpty()) {
+            // para cada categoria se la agrego al choceBox
+            for (Category category : categories) {
+                this.add_category_input.getItems().add(category.getCategoria());
+            }
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("No se pueden añadir ítems sin categoría.");
+            alert.showAndWait();
+
+            Stage stage = (Stage) this.add_btn.getScene().getWindow();
+            stage.close();
         }
     }
 
-    //inicio y traigo los items de la ventana principal
+    // inicio y traigo los items de la ventana principal
     public void initAttributes(ObservableList<Item> items) {
         this.items = items;
     }
@@ -74,31 +116,55 @@ public class AddItemController implements Initializable {
         String descripcion = this.add_descrip_input.getText();
         int precioVenta = Integer.parseInt(this.add_price_sell_input.getText());
         int precioCompra = Integer.parseInt(this.add_price_buy_input.getText());
+        int cantidad = Integer.parseInt(this.add_quantity_input.getText());
         String categoria = (String) this.add_category_input.getValue();
 
-        Item item = new Item(nombre, descripcion, precioVenta, precioCompra);
-        item.setId(model.createId());
-        item.setCategoria(categoria);
 
-        if (!items.contains(item)) {
-            this.newItem = item;
+            Item item = new Item(nombre, descripcion, precioVenta, precioCompra, cantidad);
+            item.setCategoria(categoria);
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(null);
-            alert.setTitle("Informacion");
-            alert.setContentText("Se ha añadido correctamente");
-            alert.showAndWait();
+            if (this.itemToModify == null) {
+            item.setId(model.createId());
+
+            if (!items.contains(item)) {
+                this.newItem = item;
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
+                alert.setTitle("Informacion");
+                alert.setContentText("Se ha añadido correctamente");
+                alert.showAndWait();
+
+                Stage stage = (Stage) this.add_btn.getScene().getWindow();
+                stage.close();
+            } else {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Error");
+                alert.setContentText("El item ya existe");
+                alert.showAndWait();
+            }
+        } else {
+            item.setId(itemToModify.getId());
+            item.setFechaCompra(itemToModify.getFechaCompra());
+            model.modifyItem(itemToModify, item);
+            this.newItem = item; 
 
             Stage stage = (Stage) this.add_btn.getScene().getWindow();
-            stage.close();
-        } else {
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("El item ya existe");
-            alert.showAndWait();
+                stage.close();
         }
+    }
+
+    public void setItem(Item item) {
+        this.itemToModify = item;
+
+        this.add_name_input.setText(item.getNombre());
+        this.add_descrip_input.setText(item.getDescripcion());
+        this.add_price_sell_input.setText("" + item.getVenta());
+        this.add_price_buy_input.setText("" + item.getCompra());
+        this.add_quantity_input.setText("" + item.getCantidad());
+        this.add_category_input.setValue(item.getCategoria());
     }
 
     public Item getNewItem() {

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="352.0" prefWidth="296.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Source.AddCategoryController">
+   <children>
+      <Label layoutX="46.0" layoutY="40.0" text="Nombre:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="dtl_category_name" layoutX="46.0" layoutY="73.0" prefHeight="34.0" prefWidth="200.0" style="-fx-border-radius: 500px; -fx-background-radius: 500px; -fx-background-color: none; -fx-border-color: grey;" />
+      <TextField fx:id="dtl_category_alert" layoutX="69.0" layoutY="193.0" prefHeight="34.0" prefWidth="67.0" style="-fx-background-radius: 500px; -fx-border-color: grey; -fx-border-radius: 500px; -fx-background-color: none;" />
+      <Label layoutX="59.0" layoutY="161.0" prefHeight="25.0" prefWidth="174.0" text="Alertar cuando quede" textAlignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="156.0" layoutY="198.0" text="en stock.">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="dtl_category_btn" layoutX="133.0" layoutY="290.0" mnemonicParsing="false" onAction="#SaveCategory" prefHeight="34.0" prefWidth="112.0" style="-fx-border-radius: 500px; -fx-background-radius: 500px; -fx-background-color: none; -fx-border-color: grey;" text="Aceptar" />
+   </children>
+</AnchorPane>

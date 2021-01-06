@@ -8,9 +8,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="399.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Source.DetailItemController">
+<AnchorPane id="AnchorPane" prefHeight="444.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Source.DetailItemController">
    <children>
-      <Label fx:id="dtl_name_input" layoutX="50.0" layoutY="35.0" prefHeight="30.0" prefWidth="330.0" text="Guitarra electrica parquer">
+      <Label fx:id="dtl_name_input" layoutX="50.0" layoutY="45.0" prefHeight="30.0" prefWidth="330.0" text="Guitarra electrica parquer">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -20,32 +20,38 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <AnchorPane layoutX="50.0" layoutY="127.0" prefHeight="230.0" prefWidth="467.0">
+      <AnchorPane layoutX="54.0" layoutY="188.0" prefHeight="230.0" prefWidth="467.0">
          <children>
-            <Label fx:id="dtl_description_input" layoutX="17.0" prefHeight="161.0" prefWidth="467.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." wrapText="true">
+            <Label fx:id="dtl_description_input" layoutX="9.0" layoutY="-12.0" prefHeight="161.0" prefWidth="467.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." wrapText="true">
                <font>
-                  <Font size="13.0" />
+                  <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="196.0" text="ID:">
+            <Label layoutX="14.0" layoutY="198.0" text="ID:">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
             <Label fx:id="dtl_id_input" layoutX="36.0" layoutY="193.0" style="-fx-border-radius: 500px; -fx-border-color: black; -fx-padding: 5px 15px;" text="\$3540">
                <font>
-                  <Font size="13.0" />
+                  <Font size="15.0" />
                </font>
             </Label>
             <AnchorPane layoutX="284.0" layoutY="183.0" prefHeight="51.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="dtl_edit_btn" layoutX="20.0" layoutY="11.0" mnemonicParsing="false" style="-fx-border-color: black; -fx-border-radius: 500px; -fx-padding: 5px 15px; -fx-background-color: none;" text="Editar" />
-                  <Button fx:id="dtl_eliminate_btn" layoutX="109.0" layoutY="11.0" mnemonicParsing="false" onAction="#deleteItem" style="-fx-border-color: black; -fx-border-radius: 500px; -fx-padding: 5px 15px; -fx-background-color: #ff3333; -fx-background-radius: 500px;" text="Eliminar" textFill="WHITE" />
+                  <Button fx:id="dtl_edit_btn" layoutX="20.0" layoutY="11.0" mnemonicParsing="false" onAction="#editItem" style="-fx-border-color: black; -fx-border-radius: 500px; -fx-padding: 5px 15px; -fx-background-color: none;" text="Editar">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Button>
+                  <Button fx:id="dtl_eliminate_btn" layoutX="109.0" layoutY="11.0" mnemonicParsing="false" onAction="#deleteItem" style="-fx-border-color: black; -fx-border-radius: 500px; -fx-padding: 5px 15px; -fx-background-color: #ff3333; -fx-background-radius: 500px;" text="Eliminar" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Button>
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
-      <Label fx:id="dtl_category_input" layoutX="50.0" layoutY="68.0" prefHeight="30.0" prefWidth="135.0" text="Guitarra">
+      <Label fx:id="dtl_category_input" layoutX="50.0" layoutY="78.0" prefHeight="30.0" prefWidth="135.0" text="Guitarra">
          <font>
             <Font name="System Italic" size="16.0" />
          </font>
@@ -65,5 +71,17 @@
             <Font size="13.0" />
          </font>
       </Label>
+      <Label layoutX="54.0" layoutY="124.0" text="Cantidad:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="dtl_quantity_input" layoutX="114.0" layoutY="117.0" style="-fx-border-color: black; -fx-border-radius: 500px; -fx-padding: 5px 15px;" text="5">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="dtl_buy_date" layoutX="365.0" layoutY="88.0" text="21 dec . 2021" wrapText="true" />
+      <Label fx:id="dtl_sell_date" layoutX="464.0" layoutY="88.0" text="25 dec . 2021" wrapText="true" />
    </children>
 </AnchorPane>

@@ -14,18 +14,18 @@
             <Font size="15.0" />
          </font>
       </TextField>
-      <TextArea fx:id="add_descrip_input" layoutX="63.0" layoutY="164.0" prefHeight="178.0" prefWidth="468.0" promptText="Descripción...">
+      <TextArea fx:id="add_descrip_input" layoutX="63.0" layoutY="148.0" prefHeight="178.0" prefWidth="468.0" promptText="Descripción...">
          <font>
             <Font size="15.0" />
          </font>
       </TextArea>
-      <TextField fx:id="add_price_sell_input" layoutX="330.0" layoutY="408.0" prefHeight="45.0" prefWidth="202.0" promptText="Precio de venta...">
+      <TextField fx:id="add_price_sell_input" layoutX="330.0" layoutY="378.0" prefHeight="45.0" prefWidth="202.0" promptText="Precio de venta...">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <ChoiceBox fx:id="add_category_input" layoutX="317.0" layoutY="85.0" prefHeight="31.0" prefWidth="202.0" />
-      <Button fx:id="add_btn" layoutX="431.0" layoutY="503.0" mnemonicParsing="false" onAction="#submit" prefHeight="35.0" prefWidth="100.0" text="Agregar" />
+      <ChoiceBox fx:id="add_category_input" layoutX="317.0" layoutY="78.0" prefHeight="38.0" prefWidth="202.0" />
+      <Button fx:id="add_btn" layoutX="329.0" layoutY="475.0" mnemonicParsing="false" onAction="#submit" prefHeight="45.0" prefWidth="202.0" text="Agregar" />
       <Label layoutX="16.0" layoutY="17.0" text="Agregar item">
          <font>
             <Font name="System Bold" size="17.0" />
@@ -36,7 +36,12 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="add_price_buy_input" layoutX="63.0" layoutY="408.0" prefHeight="45.0" prefWidth="202.0" promptText="Precio de compra...">
+      <TextField fx:id="add_price_buy_input" layoutX="63.0" layoutY="378.0" prefHeight="45.0" prefWidth="202.0" promptText="Precio de compra...">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="add_quantity_input" layoutX="63.0" layoutY="480.0" prefHeight="45.0" prefWidth="202.0" promptText="Cantidad...">
          <font>
             <Font size="15.0" />
          </font>

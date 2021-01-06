@@ -47,7 +47,7 @@ public class VistaController implements Initializable {
 
     private ObservableList<Item> items;
 
-    private ObservableList<CategoryStock> stock;
+    private ObservableList<Category> stock;
     @FXML
     private TableColumn tbl_stock_cat;
     @FXML
@@ -68,6 +68,14 @@ public class VistaController implements Initializable {
     private Button btn_addcategory;
     @FXML
     private Button btn_sell;
+    @FXML
+    private TableColumn tbl_stock_item_quantity;
+    @FXML
+    private Button btn_search_names;
+    @FXML
+    private TextField input_id_search_name;
+    @FXML
+    private Button btn_reload;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -82,6 +90,7 @@ public class VistaController implements Initializable {
         this.tbl_stock_cat.setCellValueFactory(new PropertyValueFactory("categoria"));
         this.tbl_stock_sell_price.setCellValueFactory(new PropertyValueFactory("venta"));
         this.tbl_stock_buy_price.setCellValueFactory(new PropertyValueFactory("compra"));
+        this.tbl_stock_item_quantity.setCellValueFactory(new PropertyValueFactory("cantidad"));
 
         ArrayList<Item> modelItems = model.getAllItems();
 
@@ -90,8 +99,8 @@ public class VistaController implements Initializable {
                 items.add(item);
             }
             Collections.reverse(items);
-            tbl_stock.setItems(items);
         }
+        tbl_stock.setItems(items);
 
         // tabla de stock
         stock = FXCollections.observableArrayList();
@@ -99,27 +108,41 @@ public class VistaController implements Initializable {
         this.tbl_stock_quantity_category.setCellValueFactory(new PropertyValueFactory("categoria"));
         this.tbl_stock_quantity_2.setCellValueFactory(new PropertyValueFactory("stock"));
 
-        ArrayList<CategoryStock> allStock = model.getStockOfAll();
+        ArrayList<Category> allStock = model.getAllOfCategory();
 
-        for (CategoryStock aux : allStock) {
-            stock.add(aux);
+        if (!allStock.isEmpty()) {
+            for (Category aux : allStock) {
+                stock.add(aux);
+            }
         }
         tbl_stock_quantity.setItems(stock);
-
     }
 
     public void refreshStockTable() {
 
-        ArrayList<CategoryStock> allStock = model.getStockOfAll();
+        ArrayList<Category> allStock = model.getAllOfCategory();
 
         stock.clear();
 
-        for (CategoryStock aux : allStock) {
+        for (Category aux : allStock) {
             this.stock.add(aux);
         }
-
         this.tbl_stock_quantity.refresh();
 
+    }
+
+    @FXML
+    public void refreshMainTable() {
+
+        ArrayList<Item> allStock = model.getAllItems();
+
+        items.clear();
+
+        for (Item item : allStock) {
+            items.add(item);
+        }
+        Collections.reverse(items);
+        this.tbl_stock_quantity.refresh();
     }
 
     @FXML
@@ -139,7 +162,9 @@ public class VistaController implements Initializable {
             stage.showAndWait();
 
             Item input_item = controlador.getNewItem();
+
             if (input_item != null) {
+
                 this.items.add(0, input_item);
                 model.addItem(input_item, input_item.getCategoria());
                 this.tbl_stock.refresh();
@@ -155,47 +180,30 @@ public class VistaController implements Initializable {
     private void selectItem(MouseEvent event) {
         // agarro el item al que le hice click
         Item selected = this.tbl_stock.getSelectionModel().getSelectedItem();
-        int index = 0;
+        if (selected != null) {
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("detailItem.fxml"));
+            int index = 0;
 
-            Parent root = loader.load();
-            DetailItemController controlador = loader.getController();
-            controlador.initAttributes(selected, this.model);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("detailItem.fxml"));
 
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
+                Parent root = loader.load();
+                DetailItemController controlador = loader.getController();
+                controlador.initAttributes(selected, this.model, this.items);
 
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            stage.showAndWait();
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
 
-            // me traigo el item que tiene guardado la ventana
-            Item ff = controlador.getItem();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scene);
+                stage.showAndWait();
 
-            // agarro en indice en donde estaba ese item en la tabla
-            for (int i = 0; i < items.size(); i++) {
-                if (items.get(i).equals(selected)) {
-                    index = i;
-                    i = items.size();
-                }
+                refreshMainTable();
+                refreshStockTable();
+
+            } catch (IOException ex) {
+                Logger.getLogger(VistaController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            // si es null, osea que si no hay nada, lo remuevo de la tabla
-            if (ff == null) {
-                items.remove(index);
-                // si el que me traigo es distinto al original (fue modificado
-            } else if (!ff.equals(selected)) {
-                items.remove(index);
-                items.add(index, ff);
-            }
-
-            tbl_stock.refresh();
-            this.refreshStockTable();
-
-        } catch (IOException ex) {
-            Logger.getLogger(VistaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -221,7 +229,7 @@ public class VistaController implements Initializable {
 
                 Parent root = loader.load();
                 DetailItemController controlador = loader.getController();
-                controlador.initAttributes(item, model);
+                controlador.initAttributes(item, model, this.items);
 
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
@@ -231,8 +239,7 @@ public class VistaController implements Initializable {
                 stage.showAndWait();
 
                 this.refreshStockTable();
-                items.remove(item);
-                this.tbl_stock.refresh();
+                this.refreshMainTable();
 
             } catch (IOException ex) {
                 Logger.getLogger(VistaController.class.getName()).log(Level.WARNING, null, ex);
@@ -242,6 +249,75 @@ public class VistaController implements Initializable {
 
     @FXML
     private void openAdderCategory(ActionEvent event) {
-        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("addCategory.fxml"));
+
+            Parent root = loader.load();
+            AddCategoryController controlador = loader.getController();
+            controlador.initAttributes(stock);
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+            Category nueva = controlador.getNewCategory();
+
+            model.createCategory(nueva);
+
+            this.stock.add(nueva);
+            this.tbl_stock_quantity.refresh();
+
+        } catch (IOException ex) {
+            Logger.getLogger(VistaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void selectCategory(MouseEvent event) {
+        // agarro la categoria
+        Category selected = (Category) this.tbl_stock_quantity.getSelectionModel().getSelectedItem();
+        int index = 0;
+
+        if (selected != null) {
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("detailCategory.fxml"));
+
+                Parent root = loader.load();
+                DetailCategoryController controlador = loader.getController();
+                controlador.initAttributes(selected, this.model, stock);
+
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scene);
+                stage.showAndWait();
+
+                refreshStockTable();
+                refreshMainTable();
+
+            } catch (IOException ex) {
+                Logger.getLogger(VistaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @FXML
+    private void openNameSearcher(ActionEvent event) {
+
+        String nombre = this.input_id_search_name.getText();
+        this.input_id_search_name.setText("");
+
+        ArrayList<Item> encontrados = model.getItemsByName(nombre);
+        if (!encontrados.isEmpty()) {
+            items.clear();
+            for (Item item : encontrados) {
+                items.add(item);
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -17,17 +18,18 @@
                             <children>
                                 <TableView fx:id="tbl_stock" fixedCellSize="-2.0" layoutX="349.0" layoutY="52.0" maxHeight="1080.0" maxWidth="1700.0" minHeight="687.0" minWidth="1000.0" onMouseClicked="#selectItem" prefHeight="687.0" prefWidth="1017.0">
                                     <columns>
-                                        <TableColumn fx:id="tbl_stock_id" prefWidth="136.0" text="Identificador" />
-                                        <TableColumn fx:id="tbl_stock_name" prefWidth="165.0" resizable="false" text="Nombre" />
-                              <TableColumn fx:id="tbl_stock_desc" prefWidth="271.0" text="Descripción" />
+                                        <TableColumn fx:id="tbl_stock_id" prefWidth="115.0" text="Identificador" />
+                                        <TableColumn fx:id="tbl_stock_name" prefWidth="155.0" resizable="false" text="Nombre" />
+                              <TableColumn fx:id="tbl_stock_desc" prefWidth="259.0" text="Descripción" />
                               <TableColumn fx:id="tbl_stock_cat" prefWidth="163.0" text="Categoría" />
-                              <TableColumn fx:id="tbl_stock_sell_price" prefWidth="153.0" resizable="false" text="Precio venta" />
-                              <TableColumn fx:id="tbl_stock_buy_price" prefWidth="128.0" resizable="false" text="Precio compra" />
+                              <TableColumn fx:id="tbl_stock_sell_price" prefWidth="117.0" resizable="false" text="Precio venta" />
+                              <TableColumn fx:id="tbl_stock_buy_price" prefWidth="136.0" resizable="false" text="Precio compra" />
+                              <TableColumn fx:id="tbl_stock_item_quantity" prefWidth="69.0" resizable="false" text="Cantidad" />
                                     </columns>
                                 </TableView>
-                                <AnchorPane prefHeight="744.0" prefWidth="350.0">
+                                <AnchorPane layoutX="-2.0" layoutY="-2.0" prefHeight="744.0" prefWidth="350.0">
                                     <children>
-                              <TableView fx:id="tbl_stock_quantity" layoutX="-1.0" layoutY="340.0" prefHeight="400.0" prefWidth="350.0">
+                              <TableView fx:id="tbl_stock_quantity" layoutX="-1.0" layoutY="340.0" onMouseClicked="#selectCategory" prefHeight="400.0" prefWidth="350.0">
                                 <columns>
                                   <TableColumn fx:id="tbl_stock_quantity_category" prefWidth="154.0" text="Categoría" />
                                   <TableColumn fx:id="tbl_stock_quantity_2" prefWidth="195.0" text="Cantidad" />
@@ -38,27 +40,76 @@
                                     <Font size="13.0" />
                                  </font>
                               </Button>
+                              <Button fx:id="btn_refresh_stock" layoutX="139.0" layoutY="295.0" mnemonicParsing="false" onAction="#refreshStockTable">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="19.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/Source/icons/refresh.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                                     </children>
                                 </AnchorPane>
                         <AnchorPane layoutX="348.0" layoutY="-2.0" prefHeight="54.0" prefWidth="1019.0">
                            <children>
-                                        <Button fx:id="btn_addItem" layoutX="137.0" layoutY="13.0" mnemonicParsing="false" onAction="#openAdder" prefHeight="29.0" prefWidth="104.0" text="Añadir ítem">
+                                        <Button fx:id="btn_addItem" layoutX="545.0" layoutY="13.0" mnemonicParsing="false" onAction="#openAdder" prefHeight="29.0" prefWidth="104.0" text="Añadir ítem">
                                  <font>
                                     <Font size="13.0" />
                                  </font></Button>
-                              <TextField fx:id="input_id_search" layoutX="694.0" layoutY="12.0" promptText="Inserte id...">
+                              <TextField fx:id="input_id_search" layoutX="765.0" layoutY="12.0" onAction="#openSearcher" promptText="Inserte ID...">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </TextField>
-                                        <Button fx:id="btn_searchItem" layoutX="897.0" layoutY="12.0" mnemonicParsing="false" onAction="#openSearcher" text="Buscar item">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font></Button>
-                              <Button fx:id="btn_sell" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#openAdder" prefHeight="29.0" prefWidth="104.0" text="Hacer venta">
+                              <Button fx:id="btn_sell" layoutX="371.0" layoutY="13.0" mnemonicParsing="false" onAction="#openAdder" prefHeight="29.0" prefWidth="104.0" text="Hacer venta">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
+                              </Button>
+                              <Button fx:id="btn_search_names" layoutX="216.0" layoutY="12.0" mnemonicParsing="false" onAction="#openNameSearcher">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="19.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/Source/icons/icono.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <TextField fx:id="input_id_search_name" layoutX="14.0" layoutY="13.0" onAction="#openNameSearcher" promptText="Inserte el nombre...">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </TextField>
+                              <Button fx:id="btn_searchItem" layoutX="969.0" layoutY="12.0" mnemonicParsing="false" onAction="#openSearcher">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="19.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/Source/icons/icono.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="btn_reload" layoutX="492.0" layoutY="12.0" mnemonicParsing="false" onAction="#refreshMainTable">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="19.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/Source/icons/refresh.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                               </Button>
                            </children>
                         </AnchorPane>

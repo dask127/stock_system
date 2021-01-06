@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="599.0" prefWidth="221.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Source.DetailCategoryController">
+   <children>
+      <Label fx:id="dtl_category_name" layoutX="27.0" layoutY="28.0" prefHeight="28.0" prefWidth="223.0" text="Categoría">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="165.0" text="Contiene ítems como :">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="40.0" layoutY="67.0" prefHeight="74.0" prefWidth="171.0">
+         <children>
+            <Label layoutY="14.0" text="Cantidad:">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="dtl_category_stock" layoutX="79.0" layoutY="12.0" text="6">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutY="39.0" prefHeight="21.0" prefWidth="102.0" text="Alertar en:" wrapText="true">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="dtl_category_alert" layoutX="79.0" layoutY="37.0" text="2">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label fx:id="dtl_category_item_1" layoutX="46.0" layoutY="187.0" prefHeight="43.0" prefWidth="149.0" wrapText="true">
+         <font>
+            <Font name="System Italic" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="dtl_category_item_2" layoutX="46.0" layoutY="238.0" prefHeight="43.0" prefWidth="149.0" wrapText="true">
+         <font>
+            <Font name="System Italic" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="dtl_category_item_3" layoutX="46.0" layoutY="287.0" prefHeight="43.0" prefWidth="149.0" wrapText="true">
+         <font>
+            <Font name="System Italic" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="dtl_category_item_4" layoutX="42.0" layoutY="345.0" prefHeight="43.0" prefWidth="149.0" wrapText="true">
+         <font>
+            <Font name="System Italic" size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="dtl_category_edit_btn" layoutX="58.0" layoutY="416.0" mnemonicParsing="false" onAction="#editCategory" prefHeight="34.0" prefWidth="126.0" style="-fx-border-radius: 500px; -fx-border-color: black; -fx-background-color: none;" text="Editar">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="dtl_category_delete_btn" layoutX="63.0" layoutY="537.0" mnemonicParsing="false" onAction="#deleteCategory" prefHeight="34.0" prefWidth="126.0" style="-fx-border-radius: 500px; -fx-border-color: black; -fx-background-color: #ff3333; -fx-background-radius: 500px;" text="Eliminar" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Label layoutX="15.0" layoutY="457.0" prefHeight="74.0" prefWidth="223.0" text="(El eliminar la categoría tambien eliminará todos los ítems que tiene asociados)" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="System Italic" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -4,12 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/octav/Desktop/stock%20system%20java/Sistema/SistemaFX/src/Source/DetailItemController.java</file>
-            <file>file:/C:/Users/octav/Desktop/stock%20system%20java/Sistema/SistemaFX/src/Source/addItem.fxml</file>
+            <file>file:/C:/Users/octav/Desktop/stock%20system%20java/Sistema/SistemaFX/src/Source/DetailCategoryController.java</file>
             <file>file:/C:/Users/octav/Desktop/stock%20system%20java/Sistema/SistemaFX/src/Source/Model.java</file>
-            <file>file:/C:/Users/octav/Desktop/stock%20system%20java/Sistema/SistemaFX/src/Source/CategoryStock.java</file>
+            <file>file:/C:/Users/octav/Desktop/stock%20system%20java/Sistema/SistemaFX/src/Source/AddCategoryController.java</file>
             <file>file:/C:/Users/octav/Desktop/stock%20system%20java/Sistema/SistemaFX/src/Source/VistaController.java</file>
-            <file>file:/C:/Users/octav/Desktop/stock%20system%20java/Sistema/SistemaFX/src/Source/stock.json</file>
-            <file>file:/C:/Users/octav/Desktop/stock%20system%20java/Sistema/SistemaFX/src/Source/Item.java</file>
+            <file>file:/C:/Users/octav/Desktop/stock%20system%20java/Sistema/SistemaFX/src/Source/Category.java</file>
             <file>file:/C:/Users/octav/Desktop/stock%20system%20java/Sistema/SistemaFX/src/Source/AddItemController.java</file>
         </group>
     </open-files>
