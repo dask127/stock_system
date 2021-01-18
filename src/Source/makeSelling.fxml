@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="471.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Source.MakeSellingController">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" hvalue="1.0" layoutY="101.0" prefHeight="310.0" prefWidth="754.0" vbarPolicy="ALWAYS">
+         <content>
+            <VBox fx:id="vbox_layout" prefHeight="348.0" prefWidth="751.0" />
+         </content>
+      </ScrollPane>
+      <AnchorPane layoutY="2.0" prefHeight="59.0" prefWidth="754.0">
+         <children>
+            <Button fx:id="id_btn" layoutX="675.0" layoutY="17.0" mnemonicParsing="false" onAction="#addById" text="Añadir" />
+            <TextField fx:id="id_input" layoutX="541.0" layoutY="17.0" onAction="#addById" prefHeight="25.0" prefWidth="120.0" promptText="Inserte ID..." />
+            <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#getCoordinates" text="Get Coordinates" />
+         </children></AnchorPane>
+      <AnchorPane fx:id="div_button" layoutY="411.0" prefHeight="59.0" prefWidth="754.0">
+         <children>
+            <Button fx:id="sell_btn" layoutX="688.0" layoutY="17.0" mnemonicParsing="false" onAction="#sellItems" text="Vender" />
+         </children></AnchorPane>
+      <Label layoutX="150.0" layoutY="68.0" prefHeight="25.0" prefWidth="72.0" text="ID:" textAlignment="CENTER" />
+      <Label layoutX="300.0" layoutY="68.0" prefHeight="25.0" prefWidth="72.0" text="Nombre:" textAlignment="CENTER" />
+      <Label layoutX="474.0" layoutY="68.0" prefHeight="25.0" prefWidth="72.0" text="Precio:" textAlignment="CENTER" />
+      <Label layoutX="600.0" layoutY="68.0" prefHeight="25.0" prefWidth="72.0" text="Cantidad:" textAlignment="CENTER" />
+   </children>
+</AnchorPane>

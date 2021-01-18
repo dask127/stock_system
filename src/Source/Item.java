@@ -10,8 +10,8 @@ public class Item {
     private int venta;
     private int compra;
     private int cantidad;
-    private String fecha_compra;
-    private String fecha_venta;
+    private String fechaCompra;
+    private String fechaVenta;
 
     public Item(String nombre, String descripcion, int precioVenta, int precioCompra, int cantidad) {
         this.nombre = nombre;
@@ -19,7 +19,7 @@ public class Item {
         this.venta = precioVenta;
         this.compra = precioCompra;
         this.cantidad = cantidad;
-        fecha_venta = null;
+        fechaVenta = null;
     }
 
     public String getDescripcion() {
@@ -35,11 +35,11 @@ public class Item {
     }
 
     public String getFechaCompra() {
-        return fecha_compra;
+        return fechaCompra;
     }
 
     public String getFechaVenta() {
-        return fecha_venta;
+        return fechaVenta;
     }
 
     public void setVenta(int venta) {
@@ -47,11 +47,11 @@ public class Item {
     }
 
     public void setFechaCompra(String fecha_compra) {
-        this.fecha_compra = fecha_compra;
+        this.fechaCompra = fecha_compra;
     }
 
     public void setFechaVenta(String fecha_venta) {
-        this.fecha_venta = fecha_venta;
+        this.fechaVenta = fecha_venta;
     }
 
     public int getCantidad() {
@@ -102,7 +102,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", categoria=" + categoria + ", venta=" + venta + ", compra=" + compra + ", cantidad=" + cantidad + ", fecha_compra=" + fecha_compra + '}';
+        return "Item{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", categoria=" + categoria + ", venta=" + venta + ", compra=" + compra + ", cantidad=" + cantidad + ", fecha_compra=" + fechaCompra + '}';
     }
 
     @Override

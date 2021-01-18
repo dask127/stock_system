@@ -37,7 +37,7 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <AnchorPane layoutX="284.0" layoutY="183.0" prefHeight="51.0" prefWidth="200.0">
+            <AnchorPane fx:id="btn_pane" layoutX="284.0" layoutY="183.0" prefHeight="51.0" prefWidth="200.0">
                <children>
                   <Button fx:id="dtl_edit_btn" layoutX="20.0" layoutY="11.0" mnemonicParsing="false" onAction="#editItem" style="-fx-border-color: black; -fx-border-radius: 500px; -fx-padding: 5px 15px; -fx-background-color: none;" text="Editar">
                      <font>

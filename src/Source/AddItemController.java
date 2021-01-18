@@ -112,53 +112,78 @@ public class AddItemController implements Initializable {
     @FXML
     private void submit(ActionEvent event) {
 
-        String nombre = this.add_name_input.getText();
-        String descripcion = this.add_descrip_input.getText();
-        int precioVenta = Integer.parseInt(this.add_price_sell_input.getText());
-        int precioCompra = Integer.parseInt(this.add_price_buy_input.getText());
-        int cantidad = Integer.parseInt(this.add_quantity_input.getText());
-        String categoria = (String) this.add_category_input.getValue();
+        String descripcion = null;
+        String categoria = null;
+        String nombre = null;
+        int precioCompra = 0;
+        int precioVenta = 0;
+        int cantidad = 0;
 
+        try {
+            nombre = this.add_name_input.getText();
+            descripcion = this.add_descrip_input.getText();
+            precioVenta = Integer.parseInt(this.add_price_sell_input.getText());
+            precioCompra = Integer.parseInt(this.add_price_buy_input.getText());
+            cantidad = Integer.parseInt(this.add_quantity_input.getText());
+            categoria = (String) this.add_category_input.getValue();
 
-            Item item = new Item(nombre, descripcion, precioVenta, precioCompra, cantidad);
-            item.setCategoria(categoria);
-
-            if (this.itemToModify == null) {
-            item.setId(model.createId());
-
-            if (!items.contains(item)) {
-                this.newItem = item;
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText(null);
-                alert.setTitle("Informacion");
-                alert.setContentText("Se ha añadido correctamente");
-                alert.showAndWait();
-
-                Stage stage = (Stage) this.add_btn.getScene().getWindow();
-                stage.close();
-            } else {
-
+            if ((nombre == null) || (descripcion == null) || (categoria == null) || (precioCompra == 0)
+                    || (precioVenta == 0) || (cantidad == 0)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
                 alert.setTitle("Error");
-                alert.setContentText("El item ya existe");
+                alert.setContentText("Complete todos los campos.");
                 alert.showAndWait();
-            }
-        } else {
-            item.setId(itemToModify.getId());
-            item.setFechaCompra(itemToModify.getFechaCompra());
-            model.modifyItem(itemToModify, item);
-            this.newItem = item; 
 
-            Stage stage = (Stage) this.add_btn.getScene().getWindow();
-                stage.close();
+            } else {
+                Item item = new Item(nombre, descripcion, precioVenta, precioCompra, cantidad);
+                item.setCategoria(categoria);
+
+                if (this.itemToModify == null) {
+                    item.setId(model.createId());
+
+                    if (!items.contains(item)) {
+                        this.newItem = item;
+
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText(null);
+                        alert.setTitle("Informacion");
+                        alert.setContentText("Se ha añadido correctamente");
+                        alert.showAndWait();
+
+                        Stage stage = (Stage) this.add_btn.getScene().getWindow();
+                        stage.close();
+                    } else {
+
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setHeaderText(null);
+                        alert.setTitle("Error");
+                        alert.setContentText("El item ya existe");
+                        alert.showAndWait();
+                    }
+                } else {
+                    item.setId(itemToModify.getId());
+                    item.setFechaCompra(itemToModify.getFechaCompra());
+                    model.modifyItem(itemToModify, item);
+                    this.newItem = item;
+
+                    Stage stage = (Stage) this.add_btn.getScene().getWindow();
+                    stage.close();
+                }
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Complete todos los campos.");
+            alert.showAndWait();
         }
     }
 
     public void setItem(Item item) {
         this.itemToModify = item;
 
+        this.add_btn.setText("Editar");
         this.add_name_input.setText(item.getNombre());
         this.add_descrip_input.setText(item.getDescripcion());
         this.add_price_sell_input.setText("" + item.getVenta());

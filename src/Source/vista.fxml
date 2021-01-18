@@ -16,17 +16,6 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="687.0" prefWidth="1369.0">
                             <children>
-                                <TableView fx:id="tbl_stock" fixedCellSize="-2.0" layoutX="349.0" layoutY="52.0" maxHeight="1080.0" maxWidth="1700.0" minHeight="687.0" minWidth="1000.0" onMouseClicked="#selectItem" prefHeight="687.0" prefWidth="1017.0">
-                                    <columns>
-                                        <TableColumn fx:id="tbl_stock_id" prefWidth="115.0" text="Identificador" />
-                                        <TableColumn fx:id="tbl_stock_name" prefWidth="155.0" resizable="false" text="Nombre" />
-                              <TableColumn fx:id="tbl_stock_desc" prefWidth="259.0" text="Descripción" />
-                              <TableColumn fx:id="tbl_stock_cat" prefWidth="163.0" text="Categoría" />
-                              <TableColumn fx:id="tbl_stock_sell_price" prefWidth="117.0" resizable="false" text="Precio venta" />
-                              <TableColumn fx:id="tbl_stock_buy_price" prefWidth="136.0" resizable="false" text="Precio compra" />
-                              <TableColumn fx:id="tbl_stock_item_quantity" prefWidth="69.0" resizable="false" text="Cantidad" />
-                                    </columns>
-                                </TableView>
                                 <AnchorPane layoutX="-2.0" layoutY="-2.0" prefHeight="744.0" prefWidth="350.0">
                                     <children>
                               <TableView fx:id="tbl_stock_quantity" layoutX="-1.0" layoutY="340.0" onMouseClicked="#selectCategory" prefHeight="400.0" prefWidth="350.0">
@@ -35,12 +24,12 @@
                                   <TableColumn fx:id="tbl_stock_quantity_2" prefWidth="195.0" text="Cantidad" />
                                 </columns>
                               </TableView>
-                              <Button fx:id="btn_addcategory" layoutX="14.0" layoutY="295.0" mnemonicParsing="false" onAction="#openAdderCategory" text="Añadir categoría">
+                              <Button fx:id="btn_addcategory" layoutX="14.0" layoutY="295.0" mnemonicParsing="false" onAction="#openAdderCategory" style="-fx-background-color: none; -fx-background-radius: 2px; -fx-border-radius: 2px; -fx-border-color: grey;" text="Añadir categoría">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btn_refresh_stock" layoutX="139.0" layoutY="295.0" mnemonicParsing="false" onAction="#refreshStockTable">
+                              <Button fx:id="btn_refresh_stock" layoutX="139.0" layoutY="295.0" mnemonicParsing="false" onAction="#refreshStockTable" style="-fx-background-color: none; -fx-background-radius: 2px; -fx-border-radius: 2px; -fx-border-color: grey;">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -52,25 +41,30 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
+                              <ImageView fitHeight="265.0" fitWidth="265.0" layoutX="45.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                 <image>
+                                    <Image url="@icons/logo.png" />
+                                 </image>
+                              </ImageView>
                                     </children>
                                 </AnchorPane>
                         <AnchorPane layoutX="348.0" layoutY="-2.0" prefHeight="54.0" prefWidth="1019.0">
                            <children>
-                                        <Button fx:id="btn_addItem" layoutX="545.0" layoutY="13.0" mnemonicParsing="false" onAction="#openAdder" prefHeight="29.0" prefWidth="104.0" text="Añadir ítem">
+                                        <Button fx:id="btn_addItem" layoutX="545.0" layoutY="12.0" mnemonicParsing="false" onAction="#openAdder" prefHeight="29.0" prefWidth="104.0" style="-fx-background-radius: 2px; -fx-border-radius: 2px; -fx-background-color: none; -fx-border-color: grey;" text="Añadir ítem">
                                  <font>
                                     <Font size="13.0" />
                                  </font></Button>
-                              <TextField fx:id="input_id_search" layoutX="765.0" layoutY="12.0" onAction="#openSearcher" promptText="Inserte ID...">
+                              <TextField fx:id="input_id_search" layoutX="765.0" layoutY="11.0" onAction="#openSearcher" promptText="Inserte ID..." style="-fx-background-color: none; -fx-background-radius: 500px; -fx-border-radius: 500px; -fx-border-color: grey;">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </TextField>
-                              <Button fx:id="btn_sell" layoutX="371.0" layoutY="13.0" mnemonicParsing="false" onAction="#openAdder" prefHeight="29.0" prefWidth="104.0" text="Hacer venta">
+                              <Button fx:id="btn_sell" layoutX="371.0" layoutY="12.0" mnemonicParsing="false" onAction="#seeCart" prefHeight="29.0" prefWidth="104.0" style="-fx-background-color: none; -fx-background-radius: 2px; -fx-border-radius: 2px; -fx-border-color: grey;" text="Ver carro">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btn_search_names" layoutX="216.0" layoutY="12.0" mnemonicParsing="false" onAction="#openNameSearcher">
+                              <Button fx:id="btn_search_names" layoutX="214.0" layoutY="11.0" mnemonicParsing="false" onAction="#openNameSearcher" style="-fx-background-color: none; -fx-background-radius: 2px; -fx-border-radius: 2px; -fx-border-color: grey;">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -82,12 +76,12 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <TextField fx:id="input_id_search_name" layoutX="14.0" layoutY="13.0" onAction="#openNameSearcher" promptText="Inserte el nombre...">
+                              <TextField fx:id="input_id_search_name" layoutX="14.0" layoutY="11.0" onAction="#openNameSearcher" promptText="Inserte el nombre..." style="-fx-background-color: none; -fx-border-radius: 500px; -fx-border-color: grey; -fx-background-radius: 500px;">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </TextField>
-                              <Button fx:id="btn_searchItem" layoutX="969.0" layoutY="12.0" mnemonicParsing="false" onAction="#openSearcher">
+                              <Button fx:id="btn_searchItem" layoutX="967.0" layoutY="11.0" mnemonicParsing="false" onAction="#openSearcher" style="-fx-background-color: none; -fx-border-color: grey; -fx-border-radius: 2px; -fx-background-radius: 2px;">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -99,7 +93,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="btn_reload" layoutX="492.0" layoutY="12.0" mnemonicParsing="false" onAction="#refreshMainTable">
+                              <Button fx:id="btn_reload" layoutX="491.0" layoutY="11.0" mnemonicParsing="false" onAction="#refreshMainTable" style="-fx-background-color: none; -fx-border-color: grey; -fx-border-radius: 2px; -fx-background-radius: 2px;">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -113,13 +107,97 @@
                               </Button>
                            </children>
                         </AnchorPane>
+                        <ScrollPane hbarPolicy="NEVER" layoutX="348.0" layoutY="52.0" prefHeight="687.0" prefWidth="1018.0">
+                           <content>
+                                      <TableView fx:id="tbl_stock" fixedCellSize="-2.0" maxHeight="1080.0" maxWidth="1700.0" minHeight="687.0" minWidth="1000.0" prefHeight="687.0" prefWidth="1017.0">
+                                          <columns>
+                                              <TableColumn fx:id="tbl_stock_id" prefWidth="115.0" text="Identificador" />
+                                              <TableColumn fx:id="tbl_stock_name" prefWidth="155.0" resizable="false" text="Nombre" />
+                                    <TableColumn fx:id="tbl_stock_desc" prefWidth="259.0" text="Descripción" />
+                                    <TableColumn fx:id="tbl_stock_cat" prefWidth="163.0" text="Categoría" />
+                                    <TableColumn fx:id="tbl_stock_sell_price" prefWidth="117.0" resizable="false" text="Precio venta" />
+                                    <TableColumn fx:id="tbl_stock_buy_price" prefWidth="121.0" resizable="false" text="Precio compra" />
+                                    <TableColumn fx:id="tbl_stock_item_quantity" prefWidth="84.0" resizable="false" text="Cantidad" />
+                                          </columns>
+                                 <contextMenu>
+                                    <ContextMenu>
+                                      <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#getDetailOfItem" text="Detalles" />
+                                          <MenuItem mnemonicParsing="false" onAction="#DeleteItem" text="Eliminar" />
+                                          <MenuItem mnemonicParsing="false" onAction="#EditItem" text="Editar" />
+                                          <MenuItem mnemonicParsing="false" onAction="#addItemToCart" text="Añadir al carro" />
+                                      </items>
+                                    </ContextMenu>
+                                 </contextMenu>
+                                      </TableView>
+                           </content>
+                        </ScrollPane>
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
                 <Tab text="Historial">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane fx:id="scroll_log" layoutX="224.0" prefHeight="741.0" prefWidth="1142.0" vbarPolicy="ALWAYS">
+                           <content>
+                              <VBox fx:id="vbox_main" prefHeight="441.0" prefWidth="1349.0" />
+                           </content>
+                        </ScrollPane>
+                        <TextField fx:id="input_log_id" layoutX="14.0" layoutY="59.0" onAction="#searchLogById" promptText="Buscar por id de ítem..." style="-fx-background-radius: 500px; -fx-border-radius: 500px; -fx-background-color: none; -fx-border-color: grey;">
+                           <font>
+                              <Font size="15.0" />
+                           </font></TextField>
+                        <TextField fx:id="input_log_name" layoutX="14.0" layoutY="339.0" onAction="#searchLogByName" promptText="Buscar por nombre..." style="-fx-background-radius: 500px; -fx-border-radius: 500px; -fx-background-color: none; -fx-border-color: grey;">
+                           <font>
+                              <Font size="15.0" />
+                           </font></TextField>
+                        <Button layoutX="76.0" layoutY="378.0" mnemonicParsing="false" onAction="#searchLogByName" style="-fx-background-color: none; -fx-border-radius: 2px; -fx-background-radius: 2px; -fx-border-color: grey;" text="Buscar">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Button>
+                        <AnchorPane layoutX="10.0" layoutY="153.0" prefHeight="125.0" prefWidth="197.0">
+                           <children>
+                              <Label layoutX="8.0" layoutY="4.0" text="Buscar por fecha:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="input_log_date_day" layoutX="7.0" layoutY="39.0" onAction="#searchLogByDate" prefHeight="25.0" prefWidth="50.0" promptText="Día" style="-fx-background-radius: 500px; -fx-border-radius: 500px; -fx-border-color: grey; -fx-background-color: none;">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></TextField>
+                              <Button layoutX="66.0" layoutY="86.0" mnemonicParsing="false" onAction="#searchLogByDate" style="-fx-background-color: none; -fx-border-radius: 2px; -fx-background-radius: 2px; -fx-border-color: grey;" text="Buscar">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></Button>
+                              <TextField fx:id="input_log_date_month" layoutX="71.0" layoutY="39.0" onAction="#searchLogByDate" prefHeight="25.0" prefWidth="50.0" promptText="Mes" style="-fx-background-radius: 500px; -fx-border-radius: 500px; -fx-border-color: grey; -fx-background-color: none;">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></TextField>
+                              <TextField fx:id="input_log_date_year" layoutX="135.0" layoutY="38.0" onAction="#searchLogByDate" prefHeight="25.0" prefWidth="50.0" promptText="Año" style="-fx-background-radius: 500px; -fx-border-radius: 500px; -fx-border-color: grey; -fx-background-color: none;">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></TextField>
+                              <Label layoutX="61.0" layoutY="37.0" text="/">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="125.0" layoutY="37.0" text="/">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <Button layoutX="76.0" layoutY="98.0" mnemonicParsing="false" onAction="#searchLogById" style="-fx-background-radius: 2px; -fx-border-radius: 2px; -fx-background-color: none; -fx-border-color: grey;" text="Buscar">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                     </children></AnchorPane>
                     </content>
                 </Tab>
             </tabs>

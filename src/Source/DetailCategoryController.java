@@ -124,7 +124,7 @@ public class DetailCategoryController implements Initializable {
 
     @FXML
     private void deleteCategory(ActionEvent event) {
-        this.model.removeCategory(this.selectedCategory.getCategoria());
+        this.model.removeCategory(selectedCategory.getCategoria());
 
         Alert aux_alert = new Alert(Alert.AlertType.CONFIRMATION);
         aux_alert.setHeaderText(null);

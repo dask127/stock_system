@@ -11,6 +11,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.Reader;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,11 +19,18 @@ import java.util.Random;
 
 public class Model {
 
-    private ArrayList identificators;
+    private ArrayList<String> identificators;
+    private ArrayList<String> logIdentificators;
+    private String path = "src/Source/stock.json";
+    private String c = "stock.json";
 
     public Model() {
         identificators = new ArrayList<String>();
+        logIdentificators = new ArrayList<String>();
         getIdsFromJSON();
+
+        // activar si se compila
+        // path = c;
     }
 
     public ArrayList getIdentificators() {
@@ -35,7 +43,7 @@ public class Model {
 
         JSONParser parser = new JSONParser();
 
-        try (Reader reader = new FileReader("src/Source/stock.json")) {
+        try (Reader reader = new FileReader(path)) {
 
             // jsonArray es todo el archivo json en forma de array
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -96,7 +104,7 @@ public class Model {
         int retorno_cantidad = 0;
         JSONParser parser = new JSONParser();
 
-        try (Reader reader = new FileReader("src/Source/stock.json")) {
+        try (Reader reader = new FileReader(path)) {
 
             // jsonArray es todo el archivo json en forma de array
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -142,139 +150,103 @@ public class Model {
         return retorno_cantidad;
     }
 
-    public void sellItem(Item item, int cantidad) {
+    public Item sellItem(Item item, int cantidad) {
+        item.setCantidad(cantidad);
 
         JSONParser parser = new JSONParser();
 
-        try (Reader reader = new FileReader("src/Source/stock.json")) {
-
-            // jsonArray es todo el archivo json en forma de array
+        try (Reader reader = new FileReader(path)) {
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
-            int index = 0;
 
-            // recorre cada instancia del array
             for (int i = 0; i < jsonArray.size(); i++) {
 
-                // agarra ese lugarcito donde está i y lo transforma en objeto
-                JSONObject json = (JSONObject) jsonArray.get(i);
+                JSONObject objectCategory = (JSONObject) jsonArray.get(i);
 
-                // agarra la clave de esa categoria (su nombre)
-                String clave = json.keySet().toString();
+                String clave = objectCategory.keySet().toString();
+                clave = clearString(clave);
 
-                String resultado = clearString(clave);
+                if (clave.equals(item.getCategoria())) {
+                    JSONObject category = (JSONObject) objectCategory.get(clave);
 
-                // si la clave que tengo es igual a la que estoy buscando...
-                if (resultado.equals(item.getCategoria())) {
-                    index = i;
+                    int category_stock = CasterObjToInt(category.get("stock"));
 
-                    JSONObject category = (JSONObject) json.get(resultado);
+                    // resultado seria el stock menos la cantidad de items que pido
+                    int resultado = category_stock - cantidad;
 
-                    JSONObject aux_category = new JSONObject();
+                    // aca arranco la nueva categoria para agregar despues
+                    JSONObject new_category = new JSONObject();
 
-                    JSONObject aux_int_category = new JSONObject();
+                    // wrapper va a ser el exterior de la categoria, teniendo por ejemplo el nombre
+                    JSONObject new_category_wrapper = new JSONObject();
 
-                    // """teoricamente""" ya hay stock
-                    int stock = CasterObjToInt(category.get("stock"));
+                    new_category.put("alertar", CasterObjToInt(category.get("alertar")));
 
-                    JSONArray items = (JSONArray) category.get("items");
+                    if (resultado == 0) {
 
-                    for (int j = 0; j < items.size(); j++) {
-                        JSONObject cosa = (JSONObject) items.get(j);
+                        new_category.put("stock", 0);
+                        new_category.put("items", new JSONArray());
 
-                        String id = (String) cosa.get("id");
+                        new_category_wrapper.put(clave, new_category);
 
-                        if (id.equals(item.getId())) {
+                        jsonArray.remove(i);
+                        jsonArray.add(i, new_category_wrapper);
 
-                            // si va a vender lo ultimo que le queda, elimina el producto y
-                            // deja el stock en 0
-                            if ((stock - cantidad) == 0) {
+                    } else {
 
-                                stock = 0;
+                        new_category.put("stock", resultado);
 
-                                // aca crea una nueva categoria copia
-                                aux_int_category.put("stock", stock);
-                                int alerta = CasterObjToInt(json.get("alertar"));
-                                aux_int_category.put("alertar", alerta);
+                        category.put("stock", resultado);
 
-                                items.remove(cosa);
+                        JSONArray category_items = (JSONArray) category.get("items");
 
-                                aux_int_category.put("items", items);
+                        for (int j = 0; j < category_items.size(); j++) {
+                            JSONObject category_item = (JSONObject) category_items.get(j);
 
-                                aux_category.put(resultado, aux_int_category);
+                            String item_id = (String) category_item.get("id");
+                            if (item_id.equals(item.getId())) {
 
-                                jsonArray.remove(index);
-                                jsonArray.add(index, aux_category);
+                                JSONObject item_atributes = (JSONObject) category_item.get("atributos");
 
-                            } else {
-                                // le calculo el stock que le quedaria a la categoria
-                                stock = stock - cantidad;
+                                int item_quantity = CasterObjToInt(item_atributes.get("cantidad"));
 
-                                // voy armando el stock
-                                aux_int_category.put("stock", stock);
+                                int item_result = item_quantity - cantidad;
 
-                                int alerta = CasterObjToInt(json.get("alertar"));
-                                aux_int_category.put("alertar", alerta);
+                                if (item_result == 0) {
 
-                                JSONObject atributos = (JSONObject) cosa.get("atributos");
-
-                                int cantidad_stock = CasterObjToInt(atributos.get("cantidad"));
-
-                                cantidad_stock = cantidad_stock - cantidad;
-
-                                // si hay que eliminar el item...
-                                if (cantidad_stock == 0) {
-
-                                    items.remove(cosa);
+                                    category_items.remove(j);
+                                    category.put("items", category_items);
 
                                 } else {
 
-                                    atributos.remove(atributos.get("cantidad"));
-                                    atributos.put("cantidad", cantidad_stock);
+                                    // linea de prueba a ver si modifica, de 2 a 1
+                                    item_atributes.put("cantidad", item_result);
 
-                                    JSONObject aux_item = new JSONObject();
-                                    String aux_id = (String) cosa.get("id");
-
-                                    aux_item.put("id", aux_id);
-                                    aux_item.put("atributos", atributos);
-
-                                    items.remove(cosa);
-                                    items.add(aux_item);
                                 }
-
-                                aux_int_category.put("items", items);
-
-                                aux_category.put(resultado, aux_int_category);
-
-                                jsonArray.remove(index);
-                                jsonArray.add(index, aux_category);
+                                break;
                             }
                         }
-
                     }
-
-                    // y finalizo el for
-                    i = jsonArray.size();
+                    break;
                 }
             }
-
             // agarro el stock y le sumo el mio
-            try (FileWriter file = new FileWriter("src/Source/stock.json")) {
+            try (FileWriter file = new FileWriter(path)) {
                 file.write(jsonArray.toJSONString());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        return item;
     }
 
     public void modifyCategory(String categoryBefore, String categoryAfter) {
         JSONParser parser = new JSONParser();
 
-        try (Reader reader = new FileReader("src/Source/stock.json")) {
+        try (Reader reader = new FileReader(path)) {
 
             // jsonArray es todo el archivo json en forma de array
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -318,7 +290,7 @@ public class Model {
             }
 
             // agarro el stock y le sumo el mio
-            try (FileWriter file = new FileWriter("src/Source/stock.json")) {
+            try (FileWriter file = new FileWriter(path)) {
                 file.write(jsonArray.toJSONString());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -335,7 +307,7 @@ public class Model {
 
         JSONParser parser = new JSONParser();
 
-        try (Reader reader = new FileReader("src/Source/stock.json")) {
+        try (Reader reader = new FileReader(path)) {
 
             // jsonArray es todo el archivo json en forma de array
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -485,8 +457,7 @@ public class Model {
                     }
                 }
 
-
-                //aca entra a la nueva categoria y mete el objecto
+                // aca entra a la nueva categoria y mete el objecto
 
                 JSONObject new_json = (JSONObject) jsonArray.get(secondCategoryIndex);
 
@@ -495,7 +466,7 @@ public class Model {
 
                 category = (JSONObject) new_json.get(resultado);
 
-                //aca lo rompe
+                // aca lo rompe
                 JSONObject new_category = new JSONObject();
                 JSONObject new_int_category = new JSONObject();
 
@@ -522,7 +493,7 @@ public class Model {
 
             try (
 
-                    FileWriter file = new FileWriter("src/Source/stock.json")) {
+                    FileWriter file = new FileWriter(path)) {
                 file.write(jsonArray.toJSONString());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -540,7 +511,7 @@ public class Model {
     public void removeItem(Item item) {
         JSONParser parser = new JSONParser();
 
-        try (Reader reader = new FileReader("src/Source/stock.json")) {
+        try (Reader reader = new FileReader(path)) {
 
             // jsonArray es todo el archivo json en forma de array
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -608,7 +579,7 @@ public class Model {
             }
 
             // agarro el stock y le sumo el mio
-            try (FileWriter file = new FileWriter("src/Source/stock.json")) {
+            try (FileWriter file = new FileWriter(path)) {
                 file.write(jsonArray.toJSONString());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -631,7 +602,7 @@ public class Model {
 
         JSONParser parser = new JSONParser();
 
-        try (Reader reader = new FileReader("src/Source/stock.json")) {
+        try (Reader reader = new FileReader(path)) {
 
             // cositas para pasarlo a json object
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -657,6 +628,8 @@ public class Model {
                         JSONObject item = (JSONObject) category_items.get(x);
                         JSONObject info = (JSONObject) item.get("atributos");
                         String name = (String) info.get("nombre");
+
+                        name = Normalizer.normalize(name, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
                         name = name.toUpperCase();
 
                         if (nombre_buscado.contains(name)) {
@@ -682,7 +655,7 @@ public class Model {
     public void removeCategory(String categoria) {
         JSONParser parser = new JSONParser();
 
-        try (Reader reader = new FileReader("src/Source/stock.json")) {
+        try (Reader reader = new FileReader(path)) {
 
             // jsonArray es todo el archivo json en forma de array
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -703,14 +676,12 @@ public class Model {
                 if (resultado.equals(categoria)) {
 
                     jsonArray.remove(i);
-
-                    // y finalizo el for
-                    i = jsonArray.size();
+                    break;
                 }
             }
 
             // agarro el stock y le sumo el mio
-            try (FileWriter file = new FileWriter("src/Source/stock.json")) {
+            try (FileWriter file = new FileWriter(path)) {
                 file.write(jsonArray.toJSONString());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -729,7 +700,7 @@ public class Model {
 
         JSONParser parser = new JSONParser();
 
-        try (Reader reader = new FileReader("src/Source/stock.json")) {
+        try (Reader reader = new FileReader(path)) {
 
             // jsonArray es todo el archivo json en forma de array
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -780,7 +751,7 @@ public class Model {
 
         JSONParser parser = new JSONParser();
 
-        try (Reader reader = new FileReader("src/Source/stock.json")) {
+        try (Reader reader = new FileReader(path)) {
 
             // jsonArray es todo el archivo json en forma de array
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -833,7 +804,7 @@ public class Model {
 
         JSONParser parser = new JSONParser();
 
-        try (Reader reader = new FileReader("src/Source/stock.json")) {
+        try (Reader reader = new FileReader(path)) {
 
             // cositas para pasarlo a json object
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -884,7 +855,7 @@ public class Model {
 
         JSONParser parser = new JSONParser();
 
-        try (Reader reader = new FileReader("src/Source/stock.json")) {
+        try (Reader reader = new FileReader(path)) {
 
             // jsonArray es todo el archivo json en forma de array
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -960,7 +931,7 @@ public class Model {
             jsonArray.add(homeIndex, category_aux);
 
             // aca ya se escribe al arhivo
-            try (FileWriter file = new FileWriter("src/Source/stock.json")) {
+            try (FileWriter file = new FileWriter(path)) {
                 file.write(jsonArray.toJSONString());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -976,7 +947,7 @@ public class Model {
     public void createCategory(Category categoria) {
         JSONParser parser = new JSONParser();
 
-        try (Reader reader = new FileReader("src/Source/stock.json")) {
+        try (Reader reader = new FileReader(path)) {
 
             // jsonObject es todo el archivo json
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -997,7 +968,7 @@ public class Model {
             // añado esa categoria en el final
             jsonArray.add(obj);
 
-            try (FileWriter file = new FileWriter("src/Source/stock.json")) {
+            try (FileWriter file = new FileWriter(path)) {
                 file.write(jsonArray.toJSONString());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1071,7 +1042,7 @@ public class Model {
 
         ArrayList stockList = new ArrayList<Category>();
 
-        try (Reader reader = new FileReader("src/Source/stock.json")) {
+        try (Reader reader = new FileReader(path)) {
 
             // cositas para pasarlo a json object
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
@@ -1119,8 +1090,8 @@ public class Model {
         resultado = "" + id;
 
         // si no esta ya creado...
-        if (identificators.contains(resultado)) {
-            while (identificators.contains(resultado)) {
+        if (identificators.contains(resultado) || logIdentificators.contains(resultado)) {
+            while (identificators.contains(resultado) || logIdentificators.contains(resultado)) {
                 int aux = new Random().nextInt(999999);
                 resultado = "" + aux;
             }
@@ -1134,5 +1105,9 @@ public class Model {
         String pattern = "dd-MM-yyyy";
         String dateInString = new SimpleDateFormat(pattern).format(new Date());
         ff.setFechaCompra(dateInString);
+    }
+
+    public void setLogIdentificators(ArrayList<String> ids) {
+
     }
 }

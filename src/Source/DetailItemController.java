@@ -23,6 +23,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
 
@@ -61,6 +62,8 @@ public class DetailItemController implements Initializable {
     private Label dtl_buy_date;
     @FXML
     private Label dtl_sell_date;
+    @FXML
+    private AnchorPane btn_pane;
 
     /**
      * Initializes the controller class.
@@ -190,5 +193,10 @@ public class DetailItemController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(VistaController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void deleteBtns(){
+        this.btn_pane.getChildren().remove(dtl_edit_btn);
+        this.btn_pane.getChildren().remove(dtl_eliminate_btn);
     }
 }

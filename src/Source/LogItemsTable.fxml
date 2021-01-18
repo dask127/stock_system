@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="497.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Source.LogItemsTableController">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" layoutX="-2.0" layoutY="-1.0" prefHeight="432.0" prefWidth="752.0">
+         <content>
+            <TableView fx:id="tbl" onMouseClicked="#selectItem" prefHeight="433.0" prefWidth="754.0">
+              <columns>
+                  <TableColumn fx:id="tbl_id" prefWidth="101.0" text="Identificador" />
+                <TableColumn fx:id="tbl_name" editable="false" prefWidth="169.0" text="Nombre" />
+                <TableColumn fx:id="tbl_sell_date" editable="false" prefWidth="180.0" text="Fecha de venta" />
+                  <TableColumn fx:id="tbl_price" prefWidth="172.0" text="Precio venta" />
+                  <TableColumn fx:id="tbl_quantity" prefWidth="113.0" text="Cantidad" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+      <Label layoutX="591.0" layoutY="451.0" text="Total:">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_price" layoutX="653.0" layoutY="451.0" text="\$15000">
+         <font>
+            <Font name="System Italic" size="22.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
